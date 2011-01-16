@@ -10,13 +10,15 @@
  */
 ?>
 <div class="wrap">
+    <div>
     <?php screen_icon(); ?>
     <h2><?php echo AIOFAVICON_NAME . ' ' . __('Settings', AIOFAVICON_TEXTDOMAIN); ?></h2>
     <br class="clear"/>
 
     <?php settings_fields(AIOFAVICON_SETTINGSNAME); ?>
 
-    <div id="poststuff" class="ui-sortable meta-box-sortables">
+    <div class="postbox-container" style="width: 69%;">
+    <div id="poststuff">
         <div id="aio-favicon-settings" class="postbox">
             <h3 id="settings"><?php _e('Settings', AIOFAVICON_TEXTDOMAIN); ?></h3>
 
@@ -106,6 +108,15 @@
                             <br /><?php _e('Enter a URL or upload a Favicon.',AIOFAVICON_TEXTDOMAIN) ?>
                         </td>
                     </tr>
+                    <tr>
+                    <th scope="row">
+                        <label for="<?php echo AIOFAVICON_SETTINGSNAME ?>-removeLinkFromMetaBox"><?php _e('Remove link from Meta-box', AIOFAVICON_TEXTDOMAIN); ?>:</label>
+                    </th>
+                    <td>
+                        <input type="checkbox" name="<?php echo AIOFAVICON_SETTINGSNAME ?>[removeLinkFromMetaBox]" id="<?php echo AIOFAVICON_SETTINGSNAME ?>-removeLinkFromMetaBox" value="true" <?php echo ($this->aioFaviconSettings['removeLinkFromMetaBox']) ? 'checked="checked"' : '';?>/>
+                        <br/><?php _e('Remove the link to the developers site from the WordPress meta-box.', AIOFAVICON_TEXTDOMAIN); ?>
+                    </td>
+                </tr>
                 </table>
                 <p class="submit">
                     <input type="hidden" name="action" value="aioFaviconUpdateSettings"/>
@@ -116,7 +127,7 @@
         </div>
     </div>
 
-    <div id="poststuff" class="ui-sortable meta-box-sortables">
+    <div id="poststuff">
         <div id="aio-favicon-delete_settings" class="postbox">
             <h3 id="delete_options"><?php _e('Delete Settings', AIOFAVICON_TEXTDOMAIN) ?></h3>
 
@@ -135,7 +146,7 @@
         </div>
     </div>
 
-    <div id="poststuff" class="ui-sortable meta-box-sortables">
+    <div id="poststuff">
         <div id="aio-favicon-tips" class="postbox">
             <h3 id="tips"><?php _e('Tips', AIOFAVICON_TEXTDOMAIN) ?></h3>
 
@@ -159,7 +170,7 @@
                 </tr>
                 <tr>
                     <th scope="row">
-                        <label for="faviconGenerator"><?php _e('Favicon validator', AIOFAVICON_TEXTDOMAIN); ?>:</label>
+                        <label for="faviconValidator"><?php _e('Favicon validator', AIOFAVICON_TEXTDOMAIN); ?>:</label>
                     </th>
                     <td id="faviconValidator">
                         <?php _e('<a href="http://www.html-kit.com/favicon/validator">HTML Kit</a> provides a favicon validator that tells you whether your favicon is working and if it is compatible to all browsers.',AIOFAVICON_TEXTDOMAIN) ?>
@@ -167,7 +178,7 @@
                 </tr>
                 <tr>
                     <th scope="row">
-                        <label for="faviconGenerator"><?php _e('Apple Touch Icon Howto', AIOFAVICON_TEXTDOMAIN); ?>:</label>
+                        <label for="faviconAppleHowto"><?php _e('Apple Touch Icon Howto', AIOFAVICON_TEXTDOMAIN); ?>:</label>
                     </th>
                     <td id="faviconAppleHowto">
                         <?php _e('<a href="http://developer.apple.com/safari/library/documentation/internetweb/conceptual/iPhoneWebAppHIG/MetricsLayout/MetricsLayout.html">Apple</a> provides a howto on how to create a PNG to use as an Apple Touch Icon.',AIOFAVICON_TEXTDOMAIN) ?>
@@ -177,32 +188,68 @@
             </div>
         </div>
     </div>
+    </div>
+    <div class="postbox-container" style="width: 29%;">
+    <div id="poststuff">
+        <div id="jquery-colorbox-topdonations" class="postbox">
+            <h3 id="topdonations"><?php _e('Top donations', AIOFAVICON_TEXTDOMAIN) ?></h3>
 
-    <div id="poststuff" class="ui-sortable meta-box-sortables">
-        <div id="aio-favicon-donate" class="postbox">
+            <div class="inside">
+                <?php echo $this->getRemoteContent(AIOFAVICON_TOPDONATEURL); ?>
+            </div>
+        </div>
+    </div>
+    <div id="poststuff">
+        <div id="jquery-colorbox-latestdonations" class="postbox">
+            <h3 id="latestdonations"><?php _e('Latest donations', AIOFAVICON_TEXTDOMAIN) ?></h3>
+
+            <div class="inside">
+                <?php echo $this->getRemoteContent(AIOFAVICON_LATESTDONATEURL); ?>
+            </div>
+        </div>
+    </div>
+    <div id="poststuff">
+        <div id="jquery-colorbox-donate" class="postbox">
             <h3 id="donate"><?php _e('Donate', AIOFAVICON_TEXTDOMAIN) ?></h3>
 
             <div class="inside">
                 <p>
-                    <span style="float: left;">
-                        <form action="https://www.paypal.com/cgi-bin/webscr" method="post">
-                            <input type="hidden" name="cmd" value="_s-xclick">
-                            <input type="hidden" name="hosted_button_id" value="11235030">
-                            <input type="image" src="https://www.paypal.com/en_GB/i/btn/btn_donate_SM.gif" name="submit" alt="PayPal - The safer, easier way to pay online.">
-                            <img alt="" border="0" src="https://www.paypal.com/de_DE/i/scr/pixel.gif" width="1" height="1">
-                        </form>
-                    </span>
+                    <?php _e('If you would like to make a small (or large) contribution towards future development please consider making a donation.', AIOFAVICON_TEXTDOMAIN) ?>
                 </p>
-                <p>
-                <?php _e('If you would like to make a small (or large) contribution towards future development please consider making a donation.', AIOFAVICON_TEXTDOMAIN) ?>
-                    <br/>&copy; Copyright 2009 - <?php echo date("Y"); ?> <a href="http://www.techotronic.de">Arne Franken</a>
-                </p>
+                <form action="https://www.paypal.com/cgi-bin/webscr" method="post">
+                    <input type="hidden" name="cmd" value="_xclick" />
+                    <input type="hidden" name="business" value="G75G3Z6PQWXXQ" />
+                    <input type="hidden" name="item_name" value="<?php _e('Techotronic Development Support' , AIOFAVICON_TEXTDOMAIN); ?>" />
+                    <input type="hidden" name="item_number" value="jQuery Colorbox"/>
+                    <input type="hidden" name="no_shipping" value="0"/>
+                    <input type="hidden" name="no_note" value="0"/>
+                    <input type="hidden" name="cn" value="<?php _e("Please enter the URL you'd like me to link to in the donors lists", AIOFAVICON_TEXTDOMAIN); ?>." />
+                    <input type="hidden" name="return" value="<?php $this->getReturnLocation(); ?>" />
+                    <input type="hidden" name="cbt" value="<?php _e('Return to Your Dashboard' , AIOFAVICON_TEXTDOMAIN); ?>" />
+                    <input type="hidden" name="currency_code" value="USD"/>
+                    <input type="hidden" name="lc" value="US"/>
+                    <input type="hidden" name="bn" value="PP-DonationsBF"/>
+                    <label for="preset-amounts"><?php _e('Select Preset Amount', AIOFAVICON_TEXTDOMAIN); echo ": "; ?></label>
+                    <select name="amount" id="preset-amounts">
+                        <option value="10">10</option>
+                        <option value="20" selected>20</option>
+                        <option value="30">30</option>
+                        <option value="40">40</option>
+                        <option value="50">50</option>
+                        <option value="100">100</option>
+                    </select><span><?php _e('USD',AIOFAVICON_TEXTDOMAIN) ?></span>
+                    <br /><br /><?php _e('Or', AIOFAVICON_TEXTDOMAIN); ?><br /><br />
+                    <label for="custom-amounts"><?php _e('Enter Custom Amount', AIOFAVICON_TEXTDOMAIN); echo ": "; ?></label>
+                    <input type="text" name="amount" size="4" id="custom-amounts"/>
+                    <span><?php _e('USD',AIOFAVICON_TEXTDOMAIN) ?></span>
+                    <br /><br />
+                    <input type="submit" value="<?php _e('Submit',AIOFAVICON_TEXTDOMAIN) ?>" class="button-secondary"/>
+                </form>
             </div>
         </div>
     </div>
-
-    <div id="poststuff" class="ui-sortable meta-box-sortables">
-        <div id="aio-favicon-translation" class="postbox">
+    <div id="poststuff">
+        <div id="jquery-colorbox-translation" class="postbox">
             <h3 id="translation"><?php _e('Translation', AIOFAVICON_TEXTDOMAIN) ?></h3>
 
             <div class="inside">
@@ -210,4 +257,12 @@
             </div>
         </div>
     </div>
+    </div>
+    </div>
+    <div class="clear">
+        <p>
+            <br/>&copy; Copyright 2010 - <?php echo date("Y"); ?> <a href="http://www.techotronic.de">Arne Franken</a>
+        </p>
+    </div>
+
 </div>
