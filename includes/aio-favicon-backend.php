@@ -8,6 +8,9 @@
  *
  * Object that handles all actions in the WordPress backend
  */
+
+require_once (dirname (__FILE__) . '/favicon-render-helper.php');
+
 class AioFaviconBackend {
 
   /**
@@ -20,6 +23,7 @@ class AioFaviconBackend {
    *
    * @param array $aioFaviconSettings user settings
    * @param array $aioFaviconDefaultSettings default plugin settings
+   * @param AIOFaviconDonationLoader $donationLoader the donationloader
    *
    * @return void
    */
@@ -30,7 +34,8 @@ class AioFaviconBackend {
     $this->aioFaviconDefaultSettings = $aioFaviconDefaultSettings;
     $this->donationLoader = $donationLoader;
 
-    add_action('admin_head', array(& $this, 'aioFaviconRenderAdminHeader'));
+    $this->faviconRenderHelper = new FaviconRenderHelper($this->aioFaviconSettings,AIOFAVICON_BACKEND);
+    add_action('admin_head', array(& $this->faviconRenderHelper, 'renderFavicons'));
 
     // add options page
     add_action('admin_menu', array(& $this, 'registerAdminMenu'));
@@ -40,8 +45,8 @@ class AioFaviconBackend {
 
     //only load JavaScript if we are on this plugin's settingspage
     if (isset($_GET['page']) && $_GET['page'] == AIOFAVICON_PLUGIN_BASENAME) {
-      add_action('admin_print_scripts', array(& $donationLoader, 'registerDonationJavaScript'));
-      add_action('admin_print_scripts', array(& $this, 'registerAdminScripts'));
+      add_action('admin_enqueue_scripts', array(& $donationLoader, 'registerDonationJavaScript'));
+      add_action('admin_enqueue_scripts', array(& $this, 'registerAdminScripts'));
     }
   }
 
@@ -76,55 +81,6 @@ class AioFaviconBackend {
   }
 
   // registerAdminScripts()
-
-  /**
-   * Renders Favicon
-   *
-   * @since 1.0
-   * @access public
-   * @author Arne Franken
-   *
-   * @return void
-   */
-  //public function aioFaviconRenderAdminHeader() {
-  function aioFaviconRenderAdminHeader() {
-    if (!empty($this->aioFaviconSettings)) {
-      foreach ((array)$this->aioFaviconSettings as $type => $url) {
-        if (!empty($url)) {
-          if (preg_match('/backend/i', $type)) {
-            if (preg_match('/ico/i', $type)) {
-?>
-<link rel="shortcut icon" href="<?php echo htmlspecialchars($url)?>"/><?php
-
-            }
-            else if (preg_match('/gif/i', $type)) {
-?>
-<link rel="icon" href="<?php echo htmlspecialchars($url)?>" type="image/gif"/><?php
-
-            }
-            else if (preg_match('/png/i', $type)) {
-?>
-<link rel="icon" href="<?php echo htmlspecialchars($url)?>" type="image/png"/><?php
-
-            }
-            else if (preg_match('/apple/i', $type)) {
-              if ((isset($this->aioFaviconSettings['removeReflectiveShine']) && !$this->aioFaviconSettings['removeReflectiveShine'])) {
-?>
-<link rel="apple-touch-icon" href="<?php echo htmlspecialchars($url)?>"/><?php
-              }
-              else {
-?>
-<link rel="apple-touch-icon-precomposed" href="<?php echo htmlspecialchars($url)?>"/><?php
-              }
-
-            }
-          }
-        }
-      }
-    }
-  }
-
-  // aioFaviconRenderAdminHeader()
 
   /**
    * Render Settings page
@@ -393,7 +349,7 @@ class AioFaviconBackend {
    *
    * @param string $url
    *
-   * @return the response
+   * @return string the response
    */
   //private function getRemoteContent($url) {
   function getRemoteContent($url) {

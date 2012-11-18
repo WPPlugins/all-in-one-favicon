@@ -6,7 +6,7 @@
  * Plugin Name: All in one Favicon
  * Plugin URI: http://www.techotronic.de/plugins/all-in-one-favicon/
  * Description: All in one Favicon management. Easily add a Favicon to your site and the WordPress admin pages. Complete with upload functionality. Supports all three Favicon types (ico,png,gif)
- * Version: 4.0
+ * Version: 4.1
  * Author: Arne Franken
  * Author URI: http://www.techotronic.de/
  * License: GPL
@@ -23,7 +23,7 @@ require_once (dirname (__FILE__) . '/includes/donationloader.php');
 require_once (dirname (__FILE__) . '/includes/debugger.php');
 
 // define constants
-define('AIOFAVICON_VERSION', '4.0');
+define('AIOFAVICON_VERSION', '4.1');
 
 if (!defined('AIOFAVICON_PLUGIN_BASENAME')) {
   //all-in-one-favicon/all-in-one-favicon.php
@@ -33,11 +33,11 @@ if (!defined('AIOFAVICON_PLUGIN_NAME')) {
   //all-in-one-favicon
   define('AIOFAVICON_PLUGIN_NAME', trim(dirname(AIOFAVICON_PLUGIN_BASENAME), '/'));
 }
-if (!defined('AIOFAVICON_NAME')) {
-  define('AIOFAVICON_NAME', __('All in one Favicon',AIOFAVICON_TEXTDOMAIN));
-}
 if (!defined('AIOFAVICON_TEXTDOMAIN')) {
   define('AIOFAVICON_TEXTDOMAIN', 'aio-favicon');
+}
+if (!defined('AIOFAVICON_NAME')) {
+  define('AIOFAVICON_NAME', __('All in one Favicon',AIOFAVICON_TEXTDOMAIN));
 }
 if (!defined('AIOFAVICON_PLUGIN_DIR')) {
   // /path/to/wordpress/wp-content/plugins/all-in-one-favicon
@@ -45,13 +45,19 @@ if (!defined('AIOFAVICON_PLUGIN_DIR')) {
 }
 if (!defined('AIOFAVICON_PLUGIN_URL')) {
   // http://www.domain.com/wordpress/wp-content/plugins/all-in-one-favicon
-  define('AIOFAVICON_PLUGIN_URL', WP_PLUGIN_URL . '/' . AIOFAVICON_PLUGIN_NAME);
+  define('AIOFAVICON_PLUGIN_URL', plugins_url('', __FILE__));
 }
 if (!defined('AIOFAVICON_SETTINGSNAME')) {
   define('AIOFAVICON_SETTINGSNAME', 'aio-favicon_settings');
 }
 if (!defined('AIOFAVICON_USERAGENT')) {
   define('AIOFAVICON_USERAGENT', 'All-in-One Favicon V' . AIOFAVICON_VERSION . '; (' . get_bloginfo('url') . ')');
+}
+if (!defined('AIOFAVICON_FRONTEND')) {
+  define('AIOFAVICON_FRONTEND', 'frontend');
+}
+if (!defined('AIOFAVICON_BACKEND')) {
+  define('AIOFAVICON_BACKEND', 'backend');
 }
 
 /**
@@ -63,13 +69,15 @@ if (!defined('AIOFAVICON_USERAGENT')) {
 class AllInOneFavicon {
 
   /**
+   * Constructor
    * Plugin initialization
    *
    * @since 1.0
    * @access public
+   * @access static
    * @author Arne Franken
    */
-  //public function AllInOneFavicon(){
+  //public static function AllInOneFavicon() {
   function AllInOneFavicon() {
     if (!function_exists('plugins_url')) {
       return;
@@ -90,7 +98,8 @@ class AllInOneFavicon {
     if (is_admin()) {
       $donationLoader = new AIOFaviconDonationLoader();
       new AioFaviconBackend($this->aioFaviconSettings, $this->aioFaviconDefaultSettings(),$donationLoader);
-    } else if (!is_admin()) {
+    }
+    else {
       new AioFaviconFrontend($this->aioFaviconSettings);
     }
 
