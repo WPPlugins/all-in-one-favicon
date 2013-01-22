@@ -6,7 +6,7 @@
  * Plugin Name: All in one Favicon
  * Plugin URI: http://www.techotronic.de/plugins/all-in-one-favicon/
  * Description: All in one Favicon management. Easily add a Favicon to your site and the WordPress admin pages. Complete with upload functionality. Supports all three Favicon types (ico,png,gif)
- * Version: 4.1
+ * Version: 4.2.1
  * Author: Arne Franken
  * Author URI: http://www.techotronic.de/
  * License: GPL
@@ -23,7 +23,7 @@ require_once (dirname (__FILE__) . '/includes/donationloader.php');
 require_once (dirname (__FILE__) . '/includes/debugger.php');
 
 // define constants
-define('AIOFAVICON_VERSION', '4.1');
+define('AIOFAVICON_VERSION', '4.2.1');
 
 if (!defined('AIOFAVICON_PLUGIN_BASENAME')) {
   //all-in-one-favicon/all-in-one-favicon.php
@@ -96,11 +96,33 @@ class AllInOneFavicon {
     $this->aioFaviconSettings = wp_parse_args($usersettings, $defaultArray);
 
     if (is_admin()) {
+      //mapping of favicon types to translatable Strings
+      $this->aioFaviconFrontendMap = array(
+        'frontendICO' => __('ICO',AIOFAVICON_TEXTDOMAIN),
+        'frontendGIF' => __('GIF',AIOFAVICON_TEXTDOMAIN),
+        'frontendPNG' => __('PNG',AIOFAVICON_TEXTDOMAIN),
+        'frontendApple' => __('Apple Touch Icon',AIOFAVICON_TEXTDOMAIN)
+      );
+
+      //mapping of favicon types to translatable Strings
+      $this->aioFaviconBackendMap = array(
+        'backendICO' => __('ICO',AIOFAVICON_TEXTDOMAIN),
+        'backendGIF' => __('GIF',AIOFAVICON_TEXTDOMAIN),
+        'backendPNG' => __('PNG',AIOFAVICON_TEXTDOMAIN),
+        'backendApple' => __('Apple Touch Icon',AIOFAVICON_TEXTDOMAIN)
+      );
+
       $donationLoader = new AIOFaviconDonationLoader();
-      new AioFaviconBackend($this->aioFaviconSettings, $this->aioFaviconDefaultSettings(),$donationLoader);
+      $backend = new AioFaviconBackend($this->aioFaviconSettings,
+        $this->aioFaviconDefaultSettings(),
+        $donationLoader,
+        $this->aioFaviconFrontendMap,
+        $this->aioFaviconBackendMap);
+      $backend->init();
     }
     else {
-      new AioFaviconFrontend($this->aioFaviconSettings);
+      $frontend = new AioFaviconFrontend($this->aioFaviconSettings);
+      $frontend->init();
     }
 
   }
