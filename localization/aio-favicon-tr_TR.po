@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: All In One Favicon\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-01-21 23:26+0100\n"
-"PO-Revision-Date: 2013-01-21 23:26+0100\n"
+"PO-Revision-Date: 2013-02-02 00:08+0100\n"
 "Last-Translator: Arne Franken <blog@techotronic.de>\n"
 "Language-Team: Techotronic <blog@techotronic.de>\n"
 "Language: en_GB\n"
@@ -22,15 +22,15 @@ msgstr "All in one Favicon"
 
 #: all-in-one-favicon.php:101 all-in-one-favicon.php:109
 msgid "ICO"
-msgstr ""
+msgstr "ICO"
 
 #: all-in-one-favicon.php:102 all-in-one-favicon.php:110
 msgid "GIF"
-msgstr ""
+msgstr "GIF"
 
 #: all-in-one-favicon.php:103 all-in-one-favicon.php:111
 msgid "PNG"
-msgstr ""
+msgstr "PNG"
 
 #: all-in-one-favicon.php:104 all-in-one-favicon.php:112
 msgid "Apple Touch Icon"
@@ -74,6 +74,8 @@ msgid ""
 "Please enable JavaScript. Upload-functionality on this page relies on "
 "JavaScript and will not work if it's not enabled."
 msgstr ""
+"Lütfen JavaScript'i aktif hale getirin. Yükleme fonksiyonları bu sayfada "
+"JavaScript'in var olmasına bağlıdır ve yoksa çalışmayacaktır."
 
 #: includes/settings-page/sp-delete-settings.php:14
 #: includes/settings-page/sp-delete-settings.php:23
@@ -154,7 +156,7 @@ msgstr "Yönetim paneli görünümü"
 
 #: includes/settings-page/sp-plugin-favicon-settings.php:30
 msgid "Upload"
-msgstr ""
+msgstr "Yükle"
 
 #: includes/settings-page/sp-plugin-favicon-settings.php:34
 msgid "Check box to delete favicon."
@@ -256,8 +258,8 @@ msgid ""
 "The english translation was done by <a href=\"http://www.techotronic.de\"  "
 "target=\"_blank\">Arne Franken</a>."
 msgstr ""
-"Türkçe çevirisi <a href=\"http://www.enazyakanaraba.com\"  target=\"_blank"
-"\">Selçuk Yahşi</a>."
+"Türkçe çevirisi <a href=\"http://yakalasam.com\"  target=\"_blank\">Ömer "
+"Faruk Karabulut</a>."
 
 #~ msgid "%1$s ICO"
 #~ msgstr "%1$s ICO"

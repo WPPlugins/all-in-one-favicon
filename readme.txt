@@ -1,14 +1,15 @@
 === All In One Favicon ===
 Contributors: techotronic  
-Donate link: http://www.techotronic.de/donate/  
 Tags: theme, favicon, admin, blog, wordpress, image, images, graphic, graphics, icon, iphone, multisite  
 Requires at least: 2.8  
-Tested up to: 3.4
-Stable tag: 4.2.1
+Tested up to: 4.6.1
+Stable tag: 4.4
 
 Easily add a Favicon to your site and the WordPress admin pages. Complete with upload functionality. Supports all three Favicon types (ico,png,gif).
 
 == Description ==
+
+[**To get even more email subscribers, use this plugin too!**](http://bit.ly/1zqOXPs)
 
 All In One Favicon adds favicons to your site and your admin pages.  
 You can either use favicons you already uploaded or use the builtin upload mechanism to upload a favicon to your WordPress installation.
@@ -30,12 +31,13 @@ See [plugin page](http://www.techotronic.de/plugins/all-in-one-favicon/) for mor
 * Hebrew (`he_IL`) by [Ahrale](http://www.atar4u.com)
 * Italian (`it_IT`) by [Valerio Vendrame](http://www.valeriovendrame.it/)
 * Polish (`pl_PL`) by [Piotr Czarnecki](http://www.facebook.com/piniu69/)
+* Portuguese (`pt_PT`) by [Miguel Ângelo Patricio](http://www.miguelpatricio.com/)
 * Serbian (`sr_RS`) by [Balkanboy Media team](http://dralvaro.com/)
 * Simplified Chinese (`zh_CN`) by [Tunghsiao Liu](http://sparanoid.com/)
 * Spanish (`es_ES`) by Eddy Ernesto Ríos
 * Slovak (`sk_SK`) by [Viliam Brozman](http://www.brozman.sk/blog)
 * Swedish (`sv_SE`) by [Christian Nilsson](http://www.theindiaexperience.se/)
-* Turkish (`tr_TR`) by Selçuk Yahşi
+* Turkish (`tr_TR`) by [Ömer Faruk Karabulut](http://ramerta.com)
 
 Is your native language missing?  
 Translating the plugin is easy if you understand english and are fluent in another language.  
@@ -90,9 +92,18 @@ Go to the settings page and and upload your Favicon(s) or add the path/URL to al
 
 == Screenshots ==
 
-[Please visit my site for screenshots](http://www.techotronic.de/plugins/all-in-one-favicon/).
 
 == Changelog ==
+
+= 4.4 (2016-10-26) =
+* BUGFIX: Fix undefined index notices.
+* BUGFIX: Use __construct() for PHP7 compatibility.
+
+= 4.3 (2012-02-21) =
+* BUGFIX: File upload will now work in certain browsers, e.g. Internet Explorer and Safari 5
+* NEW: Portuguese translation by Miguel Ângelo Patricio
+* CHANGE: Turkish translation updated by Ömer Faruk Karabulut
+
 = 4.2.1 (2012-01-21) =
 * BUGFIX: fix errormessage that _() wouldn't work in some installations
 
