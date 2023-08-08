@@ -363,6 +363,10 @@ class AioFaviconBackend {
   //private function deleteFile($faviconName) {
   function deleteFile($faviconName) {
     $url = $this->aioFaviconSettings[$faviconName];
+
+    // Sanitize the file path
+    $url = str_replace(['../', '..'], '', $url);
+
     if ($url != '') {
       $uploads = wp_upload_dir();
       $regex = '#' . $uploads['baseurl'] . '/(.*)#i';
